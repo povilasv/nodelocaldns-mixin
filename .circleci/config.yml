@@ -7,5 +7,6 @@ jobs:
     working_directory: /go/src/github.com/povilasv/nodelocaldns-mixin
     steps:
       - checkout
+      - run: mkdir -p vendor/.tmp
       - run: jb install
       - run: make
