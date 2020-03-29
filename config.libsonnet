@@ -1,4 +1,4 @@
-local coredns = import 'coredns-mixin/mixin.libsonnet';
+local coredns = import 'github.com/povilasv/coredns-mixin/mixin.libsonnet';
 
 coredns {
   _config+:: {
