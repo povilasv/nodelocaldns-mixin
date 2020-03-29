@@ -25,8 +25,8 @@ $ brew install jsonnet
 Then, grab the mixin and its dependencies:
 
 ```
-$ git clone https://github.com/povilasv/coredns-mixin
-$ cd coredns-mixin
+$ git clone https://github.com/povilasv/nodelocaldns-mixin
+$ cd nodelocaldns-mixin
 $ jb install
 ```
 
