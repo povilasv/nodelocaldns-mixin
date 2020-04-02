@@ -15,4 +15,12 @@ coredns {
       alert: std.strReplace(rule.alert, 'CoreDNS', 'NodeLocalDNS'),
     };
     utils.mapRuleGroups(addPrefix),
+} + {
+  prometheusAlerts+::
+    local addTeam(rule) = rule {
+      [if 'alert' in rule then 'annotations']+: {
+        message: std.strReplace(rule.annotations.message, 'CoreDNS', 'NodeLocalDNS'),
+      },
+    };
+    utils.mapRuleGroups(addTeam),
 }
