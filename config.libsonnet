@@ -1,4 +1,5 @@
 local coredns = import 'github.com/povilasv/coredns-mixin/mixin.libsonnet';
+local utils = import 'lib/utils.libsonnet';
 
 coredns {
   _config+:: {
@@ -8,4 +9,10 @@ coredns {
     nodelocaldnsSelector: 'name="node-local-dns-metrics"',
     podLabel: 'pod',
   },
+} + {
+  prometheusAlerts+::
+    local addPrefix(rule) = rule {
+      alert: std.strReplace(rule.alert, 'CoreDNS', 'NodeLocalDNS'),
+    };
+    utils.mapRuleGroups(addPrefix),
 }
