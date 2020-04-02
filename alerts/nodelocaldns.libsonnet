@@ -8,7 +8,7 @@
         name: 'nodelocaldns',
         rules: [
           {
-            alert: 'NodeLocalDNSDown',
+            alert: 'NodeLocalDNSMetricsDown',
             'for': '2m',
             expr: |||
               absent(up{%(nodelocaldnsSelector)s} == 1)
