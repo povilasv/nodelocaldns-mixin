@@ -3,6 +3,8 @@
 
 A set of Prometheus alerts for Node Local DNS.
 
+Example of generated alerts is located in [example/prometheus_alerts.yaml](https://github.com/povilasv/nodelocaldns-mixin/blob/master/example/prometheus_alerts.yaml)
+
 ## How to use
 
 This mixin is designed to be vendored into the repo with your infrastructure config.
