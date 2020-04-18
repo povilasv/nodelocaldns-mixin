@@ -1,4 +1,4 @@
-local coredns = import 'github.com/povilasv/coredns-mixin/mixin.libsonnet';
+local coredns = import 'github.com/povilasv/coredns-mixin/alerts/alerts.libsonnet';
 local utils = import 'lib/utils.libsonnet';
 
 coredns {
@@ -8,6 +8,20 @@ coredns {
     // selector for metrics exposed by nodelocaldns pod
     nodelocaldnsSelector: 'name="node-local-dns-metrics"',
     podLabel: 'pod',
+
+    grafanaDashboardIDs: {
+      'nodelocaldns.json': 'thael1rie7ohG6OY3eMeisahtee2iGoo1gooGhuu',
+    },
+
+    pluginNameLabel: 'name',
+    kubernetesPlugin: false,
+    grafana: {
+      dashboardNamePrefix: '',
+      dashboardTags: ['nodelocaldns-mixin'],
+
+      // The default refresh time for all dashboards, default to 10s
+      refresh: '10s',
+    },
   },
 } + {
   prometheusAlerts+::
