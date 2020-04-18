@@ -8,7 +8,7 @@ local singlestat = grafana.singlestat;
 
 {
   _config+:: {
-    corednsSelector: 'k8s_app="node-local-dns"',
+    corednsSelector: 'k8s_app="node-local-dns",name!="node-local-dns-metrics"',
     nodelocaldnsSelector: 'name="node-local-dns-metrics"',
   },
 

@@ -4,7 +4,7 @@ local utils = import 'lib/utils.libsonnet';
 coredns {
   _config+:: {
     // selector for metrics exposed by coredns plugin
-    corednsSelector: 'k8s_app="node-local-dns"',
+    corednsSelector: 'k8s_app="node-local-dns",name!="node-local-dns-metrics"',
     // selector for metrics exposed by nodelocaldns pod
     nodelocaldnsSelector: 'name="node-local-dns-metrics"',
     instanceLabel: 'pod',
