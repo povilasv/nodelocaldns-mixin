@@ -20,7 +20,6 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=1,
           valueName='min',
-          min=0,
         )
         .addTarget(prometheus.target('sum(up{%(corednsSelector)s})' % $._config));
 
@@ -30,7 +29,6 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=1,
           valueName='max',
-          min=0,
         )
         .addTarget(prometheus.target('sum(coredns_panic_count_total{%(corednsSelector)s})' % $._config));
 
@@ -94,7 +92,7 @@ local singlestat = grafana.singlestat;
         graphPanel.new(
           'Setup Errors',
           datasource='$datasource',
-          span=4,
+          span=2,
           format='ops',
           min=0,
         )
@@ -104,7 +102,7 @@ local singlestat = grafana.singlestat;
         graphPanel.new(
           'Request size',
           datasource='$datasource',
-          span=4,
+          span=5,
           format='bytes',
           min=0,
         )
@@ -115,7 +113,7 @@ local singlestat = grafana.singlestat;
         graphPanel.new(
           'Response size',
           datasource='$datasource',
-          span=4,
+          span=5,
           format='bytes',
           min=0,
         )
@@ -129,7 +127,6 @@ local singlestat = grafana.singlestat;
           span=2,
           valueName='min',
           format='percentunit',
-          min=0,
         )
         .addTarget(prometheus.target('sum(coredns_cache_hits_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}) / (sum(coredns_cache_misses_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}) + sum(coredns_cache_hits_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}))' % $._config));
 
