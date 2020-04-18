@@ -20,6 +20,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=1,
           valueName='min',
+          min=0,
         )
         .addTarget(prometheus.target('sum(up{%(corednsSelector)s})' % $._config));
 
@@ -29,6 +30,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=1,
           valueName='max',
+          min=0,
         )
         .addTarget(prometheus.target('sum(coredns_panic_count_total{%(corednsSelector)s})' % $._config));
 
@@ -38,6 +40,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=5,
           format='ops',
+          min=0,
         )
         .addTarget(prometheus.target('sum(rate(coredns_dns_response_rcode_count_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (rcode)' % $._config, legendFormat='{{rcode}}'))
         .addTarget(prometheus.target('sum(rate(coredns_forward_response_rcode_count_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (rcode)' % $._config, legendFormat='forward {{rcode}}'));
@@ -63,6 +66,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='ops',
+          min=0,
         )
         .addTarget(prometheus.target('sum(rate(coredns_dns_request_type_count_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (type)' % $._config, legendFormat='{{type}}'));
 
@@ -72,6 +76,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='ops',
+          min=0,
         )
         .addTarget(prometheus.target('sum(rate(coredns_dns_request_type_count_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (zone)' % $._config, legendFormat='{{zone}}'));
 
@@ -81,6 +86,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='ops',
+          min=0,
         )
         .addTarget(prometheus.target('sum(rate(coredns_forward_request_count_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (to)' % $._config, legendFormat='{{to}}'));
 
@@ -90,6 +96,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='ops',
+          min=0,
         )
         .addTarget(prometheus.target('sum(rate(coredns_nodecache_setup_errors{%(nodelocaldnsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (errortype, %(instanceLabel)s, le)' % $._config, legendFormat='{{%(instanceLabel)s}} {{errortype}}' % $._config));
 
@@ -99,6 +106,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='bytes',
+          min=0,
         )
         .addTarget(prometheus.target('histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (server, zone, proto, le))' % $._config, legendFormat='99th {{server}} {{zone}} {{proto}}'))
         .addTarget(prometheus.target('histogram_quantile(0.50, sum(rate(coredns_dns_request_size_bytes_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (server, zone, proto, le))' % $._config, legendFormat='50th {{server}} {{zone}} {{proto}}'));
@@ -109,10 +117,10 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='bytes',
+          min=0,
         )
         .addTarget(prometheus.target('histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (server, zone, proto, le))' % $._config, legendFormat='99th {{server}} {{zone}} {{proto}}'))
         .addTarget(prometheus.target('histogram_quantile(0.50, sum(rate(coredns_dns_response_size_bytes_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (server, zone, proto, le))' % $._config, legendFormat='50th {{server}} {{zone}} {{proto}}'));
-
 
       local cachePercentage =
         singlestat.new(
@@ -121,6 +129,7 @@ local singlestat = grafana.singlestat;
           span=2,
           valueName='min',
           format='percentunit',
+          min=0,
         )
         .addTarget(prometheus.target('sum(coredns_cache_hits_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}) / (sum(coredns_cache_misses_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}) + sum(coredns_cache_hits_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}))' % $._config));
 
@@ -130,6 +139,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=5,
           format='ops',
+          min=0,
         )
         .addTarget(prometheus.target('sum(rate(coredns_cache_hits_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (type)' % $._config, legendFormat='{{type}}'))
         .addTarget(prometheus.target('sum(rate(coredns_cache_misses_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m]))' % $._config, legendFormat='misses'));
@@ -140,6 +150,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=5,
           format='short',
+          min=0,
         )
         .addTarget(prometheus.target('sum(coredns_cache_size{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}) by (type)' % $._config, legendFormat='{{type}}'));
 
@@ -149,6 +160,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='bytes',
+          min=0,
         )
         .addTarget(prometheus.target('process_resident_memory_bytes{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}' % $._config, legendFormat='{{%(instanceLabel)s}}'));
 
@@ -168,6 +180,7 @@ local singlestat = grafana.singlestat;
           datasource='$datasource',
           span=4,
           format='short',
+          min=0,
         )
         .addTarget(prometheus.target('go_goroutines{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}' % $._config, legendFormat='{{%(instanceLabel)s}}'));
 
