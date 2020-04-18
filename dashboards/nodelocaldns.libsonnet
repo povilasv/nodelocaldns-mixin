@@ -182,9 +182,9 @@ local singlestat = grafana.singlestat;
 
 
       dashboard.new(
-        '%(dashboardNamePrefix)sCoreDNS' % $._config.grafana,
+        '%(dashboardNamePrefix)sNodeLocalDNS' % $._config.grafana,
         time_from='now-1h',
-        uid=($._config.grafanaDashboardIDs['coredns.json']),
+        uid=($._config.grafanaDashboardIDs['nodelocaldns.json']),
         tags=($._config.grafana.dashboardTags),
       ).addTemplate(
         {

@@ -7,10 +7,10 @@ coredns {
     corednsSelector: 'k8s_app="node-local-dns"',
     // selector for metrics exposed by nodelocaldns pod
     nodelocaldnsSelector: 'name="node-local-dns-metrics"',
-    podLabel: 'pod',
+    instanceLabel: 'pod',
 
     grafanaDashboardIDs: {
-      'nodelocaldns.json': 'thael1rie7ohG6OY3eMeisahtee2iGoo1gooGhuu',
+      'nodelocaldns.json': 'ietaejooPhahp9lohc3azeuv7eiv0bootohN5toh',
     },
 
     pluginNameLabel: 'name',
