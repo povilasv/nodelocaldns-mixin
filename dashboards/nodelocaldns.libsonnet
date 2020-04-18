@@ -84,29 +84,20 @@ local singlestat = grafana.singlestat;
         )
         .addTarget(prometheus.target('sum(rate(coredns_forward_request_count_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (to)' % $._config, legendFormat='{{to}}'));
 
-      local kubernetesDuration = if $._config.kubernetesPlugin then
+      local setupErrors =
         graphPanel.new(
-          'Kubernetes DNS programming duration',
+          'Setup Errors',
           datasource='$datasource',
           span=4,
-          format='seconds',
+          format='ops',
         )
-        .addTarget(prometheus.target('histogram_quantile(0.99, sum(rate(coredns_kubernetes_dns_programming_duration_seconds_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (service_kind, le))' % $._config, legendFormat='99th {{service_kind}}'))
-        .addTarget(prometheus.target('histogram_quantile(0.50, sum(rate(coredns_kubernetes_dns_programming_duration_seconds_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (service_kind, le))' % $._config, legendFormat='50th {{service_kind}}'))
-      else
-        singlestat.new(
-          'Plugins Enabled',
-          datasource='$datasource',
-          span=2,
-          valueName='min',
-        )
-        .addTarget(prometheus.target('count(sum(coredns_plugin_enabled{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}) by (%(pluginNameLabel)s))' % $._config));
+        .addTarget(prometheus.target('sum(rate(coredns_nodecache_setup_errors{%(nodelocaldnsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (errortype, %(instanceLabel)s, le))' % $._config, legendFormat='{{%(instanceLabel)s}} {{errortype}}'));
 
       local requestSize =
         graphPanel.new(
           'Request size',
           datasource='$datasource',
-          span=if $._config.kubernetesPlugin then 4 else 5,
+          span=4,
           format='bytes',
         )
         .addTarget(prometheus.target('histogram_quantile(0.99, sum(rate(coredns_dns_request_size_bytes_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (server, zone, proto, le))' % $._config, legendFormat='99th {{server}} {{zone}} {{proto}}'))
@@ -116,7 +107,7 @@ local singlestat = grafana.singlestat;
         graphPanel.new(
           'Response size',
           datasource='$datasource',
-          span=if $._config.kubernetesPlugin then 4 else 5,
+          span=4,
           format='bytes',
         )
         .addTarget(prometheus.target('histogram_quantile(0.99, sum(rate(coredns_dns_response_size_bytes_bucket{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (server, zone, proto, le))' % $._config, legendFormat='99th {{server}} {{zone}} {{proto}}'))
@@ -228,7 +219,7 @@ local singlestat = grafana.singlestat;
         .addPanel(cacheSize)
       ).addRow(
         row.new()
-        .addPanel(kubernetesDuration)
+        .addPanel(setupErrors)
         .addPanel(requestSize)
         .addPanel(responseSize)
       ).addRow(

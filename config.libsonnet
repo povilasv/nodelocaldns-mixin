@@ -14,7 +14,6 @@ coredns {
     },
 
     pluginNameLabel: 'name',
-    kubernetesPlugin: false,
     grafana: {
       dashboardNamePrefix: '',
       dashboardTags: ['nodelocaldns-mixin'],
