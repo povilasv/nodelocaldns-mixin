@@ -13,13 +13,12 @@ coredns {
       'nodelocaldns.json': 'ietaejooPhahp9lohc3azeuv7eiv0bootohN5toh',
     },
 
-    pluginNameLabel: 'name',
     grafana: {
       dashboardNamePrefix: '',
       dashboardTags: ['nodelocaldns-mixin'],
 
       // The default refresh time for all dashboards, default to 10s
-      refresh: '10s',
+      refresh: '60s',
     },
   },
 } + {
