@@ -159,7 +159,7 @@ local singlestat = grafana.singlestat;
           format='bytes',
           min=0,
         )
-        .addTarget(prometheus.target('process_resident_memory_bytes{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}' % $._config, legendFormat='{{%(instanceLabel)s}}'));
+        .addTarget(prometheus.target('process_resident_memory_bytes{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}' % $._config, legendFormat='{{%(instanceLabel)s}}' % $._config));
 
       local cpu =
         graphPanel.new(
@@ -169,7 +169,7 @@ local singlestat = grafana.singlestat;
           format='short',
           min=0,
         )
-        .addTarget(prometheus.target('rate(process_cpu_seconds_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])' % $._config, legendFormat='{{%(instanceLabel)s}}'));
+        .addTarget(prometheus.target('rate(process_cpu_seconds_total{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}[5m])' % $._config, legendFormat='{{%(instanceLabel)s}}' % $._config));
 
       local goroutines =
         graphPanel.new(
@@ -179,7 +179,7 @@ local singlestat = grafana.singlestat;
           format='short',
           min=0,
         )
-        .addTarget(prometheus.target('go_goroutines{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}' % $._config, legendFormat='{{%(instanceLabel)s}}'));
+        .addTarget(prometheus.target('go_goroutines{%(corednsSelector)s,%(instanceLabel)s=~"$instance"}' % $._config, legendFormat='{{%(instanceLabel)s}}' % $._config));
 
 
       dashboard.new(
