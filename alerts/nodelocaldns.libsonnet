@@ -25,7 +25,7 @@
             expr: |||
               rate(coredns_nodecache_setup_errors{%(nodelocaldnsSelector)s}[5m]) > 0
             ||| % $._config,
-            'for': '5m',
+            'for': '10m',
             labels: {
               severity: 'critical',
             },
@@ -38,7 +38,7 @@
             expr: |||
               rate(coredns_nodecache_setup_errors_total{%(nodelocaldnsSelector)s}[5m]) > 0
             ||| % $._config,
-            'for': '5m',
+            'for': '10m',
             labels: {
               severity: 'critical',
             },
