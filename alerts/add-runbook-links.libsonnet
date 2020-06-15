@@ -10,13 +10,13 @@ local lower(x) =
 
 {
   _config+:: {
-    runbookURLPattern: 'https://github.com/povilasv/nodelocaldns-mixin/tree/master/runbook.md#alert-name-%s',
+    nodelocaldnsRunbookURLPattern: 'https://github.com/povilasv/nodelocaldns-mixin/tree/master/runbook.md#alert-name-%s',
   },
 
   prometheusAlerts+::
     local addRunbookURL(rule) = rule {
       [if 'alert' in rule then 'annotations']+: {
-        runbook_url: $._config.runbookURLPattern % lower(rule.alert),
+        runbook_url: $._config.nodelocaldnsRunbookURLPattern % lower(rule.alert),
       },
     };
     utils.mapRuleGroups(addRunbookURL),
