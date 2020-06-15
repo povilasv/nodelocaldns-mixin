@@ -7,9 +7,9 @@ tests:
 - interval: 1m
   input_series:
   - series: 'coredns_nodecache_setup_errors{errortype="iptables", instance="192.168.1.220:9353", k8s_app="node-local-dns", name="node-local-dns-metrics", namespace="kube-system", pod="node-local-dns-sdfr6"}'
-    values: '0 100 200 300 400 500 600 700'
+    values: '0 100 200 300 400 500 600 700 800 900 1000 1100 1200'
   alert_rule_test:
-  - eval_time: 6m
+  - eval_time: 11m
     alertname: NodeLocalDNSSetupErrorsHigh
     exp_alerts:
     - exp_labels:
@@ -22,4 +22,4 @@ tests:
         pod: node-local-dns-sdfr6
       exp_annotations:
         message: "There are iptables errors setting up Node Local DNS."
-        runbook_url: https://github.com/povilasv/coredns-mixin/tree/master/runbook.md#alert-name-nodelocaldnssetuperrorshigh
+        runbook_url: https://github.com/povilasv/nodelocaldns-mixin/tree/master/runbook.md#alert-name-nodelocaldnssetuperrorshigh
