@@ -155,7 +155,7 @@ local singlestat = grafana.singlestat;
         graphPanel.new(
           'Memory',
           datasource='$datasource',
-          span=4i,
+          span=4,
           format='bytes',
           min=0,
         )
