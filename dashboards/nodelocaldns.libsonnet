@@ -96,7 +96,7 @@ local singlestat = grafana.singlestat;
           format='ops',
           min=0,
         )
-        .addTarget(prometheus.target('sum(rate(coredns_nodecache_setup_errors{%(nodelocaldnsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (errortype, %(instanceLabel)s, le)' % $._config, legendFormat='{{%(instanceLabel)s}} {{errortype}}' % $._config));
+        .addTarget(prometheus.target('sum(rate(coredns_nodecache_setup_errors_total{%(nodelocaldnsSelector)s,%(instanceLabel)s=~"$instance"}[5m])) by (errortype, %(instanceLabel)s, le)' % $._config, legendFormat='{{%(instanceLabel)s}} {{errortype}}' % $._config));
 
       local requestSize =
         graphPanel.new(
